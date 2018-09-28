@@ -1,0 +1,53 @@
+@import "~antd/lib/style/themes/default.less";
+
+.antd-amplify-full-width {
+  width: 100%;
+}
+.antd-amplify-actions {
+  @media only screen and (max-width: @screen-xs) {
+    .antd-amplify-action {
+      min-height: calc(@btn-height-lg + 8px);
+      &:first-child {
+        min-height: @btn-height-lg;
+        height: @btn-height-lg;
+      }
+    }
+    &:last-child {
+      min-height: @btn-height-lg;
+    }
+  }
+}
+
+.antd-amplify-container {
+  width: 100%;
+}
+
+.antd-amplify-form {
+  padding: 10px;
+}
+
+.ant-layout {
+  height: 100vh;
+  .basic-layout-content {
+    padding: 0 50px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.antd-amplify-auth-flow, .antd-amplify-form {
+  .ant-tabs-nav,
+  .ant-tabs-tab {
+    height: auto !important;
+  }
+
+  .ant-input-affix-wrapper .ant-input {
+    height: auto;
+    min-height: auto;
+  }
+
+  .ant-tabs-nav-scroll {
+    text-align: center;
+  }
+}
