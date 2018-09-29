@@ -3,7 +3,6 @@ import {
   Authenticator
 } from "aws-amplify-react";
 import { render } from "react-dom";
-// import "antd/dist/antd.css";
 import AuthFlow, { BasicLayout, SignIn, RequireNewPassword, ResetPassword, ConfirmSignUp, SignUp } from "../../src";
 
 const App = () => (

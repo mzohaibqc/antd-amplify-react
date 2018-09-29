@@ -161,12 +161,12 @@ class SignIn extends AuthPiece {
               </a>
             </span>
             <span>
-              {I18n.get("Create Account ")}
+              
               <a
                 disabled={this.state.loading}
                 onClick={() => this.changeState("signUp")}
               >
-                SignUp
+                {I18n.get("Create Account ")}
               </a>
             </span>
             <Button
