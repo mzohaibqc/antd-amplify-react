@@ -1,5 +1,5 @@
 {
-  "presets": ["env", "react"],
+  "presets": ["env", "react", "stage-2"],
   "plugins": [
     ["import", { "libraryName": "antd", "libraryDirectory": "lib"}, "ant"]
   ]

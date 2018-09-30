@@ -10,7 +10,10 @@ const App = () => (
     hideDefault
   >
     <BasicLayout>
-      <SignIn />
+      <SignIn title="Sign In" formProps={{
+        hideSignUpLink: true,
+        hideResetPasswordLink: true
+      }} />
       <SignUp />
       <RequireNewPassword />
       <ResetPassword />

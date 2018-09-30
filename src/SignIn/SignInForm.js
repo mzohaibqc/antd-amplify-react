@@ -2,7 +2,7 @@ import React from "react";
 import { Auth, JS, I18n } from "aws-amplify";
 import { Form, Button, Input, Icon, message, Row } from "antd";
 
-import AuthPiece from "./AuthPiece";
+import AuthPiece from "../AuthPiece";
 
 const FormItem = Form.Item;
 
@@ -16,7 +16,6 @@ class SignIn extends AuthPiece {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.login = this.login.bind(this);
     this.showComponent = this.showComponent.bind(this);
-
 
     this._validAuthStates = ["signIn", "signedOut", "signedUp"];
     this.state = {
@@ -41,20 +40,20 @@ class SignIn extends AuthPiece {
     }
   }
 
-  handleSubmit (e) {
+  handleSubmit(e) {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.signIn();
       }
     });
-  };
+  }
 
-  login (data) {
-    if (typeof this.props.login === 'function') {
+  login(data) {
+    if (typeof this.props.login === "function") {
       this.props.login(data);
     }
-  };
+  }
 
   checkContact(user) {
     if (!Auth || typeof Auth.verifiedContact !== "function") {
@@ -119,65 +118,82 @@ class SignIn extends AuthPiece {
   showComponent() {
     const { getFieldDecorator } = this.props.form;
     const { loading } = this.state;
+    let {
+      usernameInputProps = {},
+      passwordInputProps = {},
+      hideSignUpLink = false,
+      hideResetPasswordLink = false,
+      buttonProps: {}
+    } = this.props;
+    usernameInputProps = {
+      prefix: <Icon type="user" />,
+      size: "large",
+      placeholder: "Username",
+      ...usernameInputProps,
+      onChange: this.handleInputChange,
+      name: "username"
+    };
+    passwordInputProps = {
+      prefix: <Icon type="lock" />,
+      size: "large",
+      placeholder: "Password",
+      ...passwordInputProps,
+      onChange: this.handleInputChange,
+      name: "password",
+      type: "password"
+    };
+    buttonProps = {
+      size: 'large',
+      type: 'primary',
+      type: 'primary',
+      label: 'Submit',
+      ...buttonProps,
+      loading,
+      disabled: loading,
+      htmlType: 'submit'
+    }
 
     return (
-      <Form onSubmit={this.handleSubmit} className="antd-amplify-form antd-amplify-form-signin">
+      <Form
+        onSubmit={this.handleSubmit}
+        className="antd-amplify-form antd-amplify-form-signin"
+      >
         <FormItem>
           {getFieldDecorator("username", {
             rules: [{ required: true, message: "Please input your username!" }]
-          })(
-            <Input
-              size="large"
-              prefix={<Icon type="user" />}
-              placeholder="Username"
-              name="username"
-              onChange={this.handleInputChange}
-            />
-          )}
+          })(<Input {...usernameInputProps} />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator("password", {
             rules: [{ required: true, message: "Please input your Password!" }]
-          })(
-            <Input
-              size="large"
-              prefix={<Icon type="lock" />}
-              type="password"
-              placeholder="Password"
-              name="password"
-              onChange={this.handleInputChange}
-            />
-          )}
+          })(<Input {...passwordInputProps} />)}
         </FormItem>
         <FormItem>
           <Row type="flex" align="space-between">
-            <span>
-              {I18n.get("Forgot Password? ")}
-              <a
-                disabled={this.state.loading}
-                onClick={() => this.changeState("forgotPassword")}
-              >
-                Reset
-              </a>
-            </span>
-            <span>
-              
-              <a
-                disabled={this.state.loading}
-                onClick={() => this.changeState("signUp")}
-              >
-                {I18n.get("Create Account ")}
-              </a>
-            </span>
-            <Button
-              type="primary"
-              size="large"
-              htmlType="submit"
-              className="antd-amplify-full-width"
-              loading={loading}
-              disabled={loading}
+            {!hideResetPasswordLink && (
+              <span>
+                {I18n.get("Forgot Password? ")}
+                <a
+                  disabled={this.state.loading}
+                  onClick={() => this.changeState("forgotPassword")}
+                >
+                  Reset
+                </a>
+              </span>
+            )}
+            {!hideSignUpLink && (
+              <span>
+                <a
+                  disabled={this.state.loading}
+                  onClick={() => this.changeState("signUp")}
+                >
+                  {I18n.get("Sign Up")}
+                </a>
+              </span>
+            )}
+            <Button {...buttonProps}
             >
-              Submit
+              {buttonProps.label}
             </Button>
           </Row>
         </FormItem>

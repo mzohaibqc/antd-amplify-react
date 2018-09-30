@@ -1,7 +1,7 @@
 import React from "react";
 import AuthPiece from './AuthPiece';
 import { Card, Radio, Row, Col, Tabs } from "antd";
-import SignInForm from "./SignInForm";
+import SignInForm from "./SignIn/SignInForm";
 import SignUpForm from "./SignUpForm";
 import ResetPasswordForm from "./ResetPasswordForm";
 import ConfirmSignUpForm from "./ConfirmSignUpForm";

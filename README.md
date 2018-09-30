@@ -23,6 +23,9 @@ There is a special component `AuthFlow` which contains all above mentioned compo
 ```
 <SignIn />
 ```
+[SignIn, See more](./src/SignIn/README.md)
+
+
 ![SignIn](https://raw.githubusercontent.com/mzohaibqc/antd-amplify-react/master/images/SignIn.png?raw=true "SignIn")
 ```
 <ResetPassword />

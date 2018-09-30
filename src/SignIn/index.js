@@ -9,8 +9,8 @@ const SignIn = props => {
   }
   return (
     <Col xs={24} sm={12} md={8}>
-      <Card title="Sign in to your account">
-        <SignInForm {...props} />
+      <Card title={props.title || 'Sign in to your account' }>
+        <SignInForm {...props.formProps} {...props} />
       </Card>
     </Col>
   );
