@@ -8,10 +8,11 @@ const ConfirmSignUp = props => {
   if (authState !== "confirmSignUp") {
     return null;
   }
+  const { colProps = { xs: 24, sm: 12, md: 8 }} = props;
   return (
-    <Col xs={24} sm={12} md={8}>
-      <Card title="Confirm Sign Up">
-        <ConfirmSignUpForm {...props} />
+    <Col {...colProps}>
+      <Card title={props.title || 'Confirm Sign Up'}>
+        <ConfirmSignUpForm {...props.formProps} {...props} />
       </Card>
     </Col>
   );

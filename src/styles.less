@@ -30,10 +30,13 @@
   height: 100vh;
   .basic-layout-content {
     padding: 0 50px;
-    height: 100vh;
+    height: calc(100vh - 64px - 68px);
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .ant-layout-footer {
+    height: 68px;
   }
 }
 .antd-amplify-auth-flow, .antd-amplify-form {
@@ -41,6 +44,9 @@
   .ant-tabs-tab {
     height: auto !important;
   }
+  .ant-card-head-title {
+    justify-content: center;
+  } 
 
   .ant-input-affix-wrapper .ant-input {
     height: auto;

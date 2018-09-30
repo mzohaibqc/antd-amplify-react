@@ -7,10 +7,11 @@ const SignIn = props => {
   if (authState !== "signIn") {
     return null;
   }
+  const { colProps = { xs: 24, sm: 12, md: 8 }} = props;
   return (
-    <Col xs={24} sm={12} md={8}>
+    <Col {...colProps}>
       <Card title={props.title || 'Sign in to your account' }>
-        <SignInForm {...props.formProps} {...props} />
+        <SignInForm {...props}  {...props.formProps}  />
       </Card>
     </Col>
   );

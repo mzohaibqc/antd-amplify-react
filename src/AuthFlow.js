@@ -1,8 +1,8 @@
 import React from "react";
 import AuthPiece from './AuthPiece';
 import { Card, Radio, Row, Col, Tabs } from "antd";
-import SignInForm from "./SignIn/SignInForm";
-import SignUpForm from "./SignUp/SignUpForm";
+import SignInForm from "./SignInForm";
+import SignUpForm from "./SignUpForm";
 import ResetPasswordForm from "./ResetPasswordForm";
 import ConfirmSignUpForm from "./ConfirmSignUpForm";
 import RequireNewPasswordForm from "./RequireNewPasswordForm";
@@ -13,13 +13,20 @@ class AuthFlow extends AuthPiece {
   render() {
     const {
       authState,
-      userRadioButtons = false,
-      tabPosition = "left",
-      cardView = false
     } = this.props;
     if (authState === "signedIn") {
       return null;
     }
+    const {
+      tabPosition = "top",
+      tabView = false,
+      colProps = { xs: 24, sm: 12, md: 8 },
+      signInFormProps = {},
+      signUpFormProps = {},
+      confirmSignUpFormProps = {},
+      resertPasswordFormProps = {},
+      requireNewPasswordProps = {}
+    } = this.props;
     let tabValue = authState;
     if (["signUp", "confirmSignUp"].indexOf(authState) > -1) {
       tabValue = "signUp";
@@ -45,29 +52,28 @@ class AuthFlow extends AuthPiece {
         activeKey={tabValue}
         tabPosition={tabPosition}
         onTabClick={value => this.changeState(value)}
-        style={{ paddingTop: 10, height: 300 }}
+        style={{ paddingTop: 10 }}
         className="antd-amplify-auth-flow"
       >
         <TabPane tab="Sign In" key="signIn">
-          <SignInForm {...this.props} />
-          <RequireNewPasswordForm {...this.props} />
+          <SignInForm {...this.props} {...signInFormProps} />
+          <RequireNewPasswordForm {...this.props} {...requireNewPasswordProps} />
         </TabPane>
         <TabPane tab="Sign Up" key="signUp">
-          <SignUpForm {...this.props} />
-          <ConfirmSignUpForm {...this.props} />
+          <SignUpForm {...this.props} {...signUpFormProps} />
+          <ConfirmSignUpForm {...this.props} {...confirmSignUpFormProps} />
         </TabPane>
         <TabPane tab="Reset" key="forgotPassword">
-          <ResetPasswordForm {...this.props} />
+          <ResetPasswordForm {...this.props} {...resertPasswordFormProps} />
         </TabPane>
       </Tabs>
     );
-    if (cardView) {
-      render = <Card style={{ height: 300 }}>{render}</Card>;
-    }
-    if (userRadioButtons) {
+    if (tabView) {
+    render = <Card >{render}</Card>;
+    } else {
       render = (
         <Card title={title} className="antd-amplify-auth-flow">
-          <SignInForm {...this.props} />
+          <SignInForm {...this.props} {...signInFormProps} />
           <SignUpForm {...this.props} />
           <ResetPasswordForm {...this.props} />
           <ConfirmSignUpForm {...this.props} />
@@ -76,7 +82,7 @@ class AuthFlow extends AuthPiece {
       );
     }
     return (
-      <Col xs={24} sm={12} md={8}>
+      <Col {...colProps}>
         {render}
       </Col>
     );

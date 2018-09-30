@@ -1,16 +1,30 @@
 import React from "react";
-import {
-  Authenticator
-} from "aws-amplify-react";
+import { Authenticator } from "aws-amplify-react";
 import { render } from "react-dom";
-import AuthFlow, { BasicLayout, SignIn, RequireNewPassword, ResetPassword, ConfirmSignUp, SignUp } from "../../src";
+import AuthFlow, {
+  BasicLayout,
+  SignIn,
+  RequireNewPassword,
+  ResetPassword,
+  ConfirmSignUp,
+  SignUp
+} from "../../src";
 
 const App = () => (
-  <Authenticator
-    hideDefault
-  >
+  <Authenticator hideDefault>
     <BasicLayout>
-      <SignIn title="Sign In" formProps={{
+      <AuthFlow
+        tabPosition="left"
+        tabView
+        signInFormProps={{
+          hideSignUpLink: false,
+          hideResetPasswordLink: false,
+          usernameInputProps: {
+            message: "Invalid username!"
+          }
+        }}
+      />
+      {/* <SignIn title="Sign In" formProps={{
         hideSignUpLink: false,
         hideResetPasswordLink: false,
         usernameInputProps: {
@@ -20,7 +34,7 @@ const App = () => (
       <SignUp />
       <RequireNewPassword />
       <ResetPassword />
-      <ConfirmSignUp />
+      <ConfirmSignUp /> */}
     </BasicLayout>
   </Authenticator>
 );

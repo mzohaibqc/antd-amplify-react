@@ -69,6 +69,19 @@ class ResetPasswordForm extends AuthPiece {
 
   sendView () {
     const { getFieldDecorator } = this.props.form;
+    let {
+      usernameInputProps = {}
+    } = this.props;
+    usernameInputProps = {
+      prefix: <Icon type="user" />,
+      size: "large",
+      placeholder: "Email",
+      message: 'Please enter your email!',
+      ...usernameInputProps,
+      onChange: this.handleInputChange,
+      name: "email",
+    };
+    
     return (
       <FormItem>
         {getFieldDecorator("username", {
@@ -76,17 +89,11 @@ class ResetPasswordForm extends AuthPiece {
             {
               required: true,
               type: "email",
-              message: "Please input your username!"
+              message: usernameInputProps.message
             }
           ]
         })(
-          <Input
-            size="large"
-            prefix={<Icon type="user" />}
-            placeholder="Username"
-            name="username"
-            onChange={this.handleInputChange}
-          />
+          <Input {...usernameInputProps} />
         )}
       </FormItem>
     );
@@ -94,19 +101,36 @@ class ResetPasswordForm extends AuthPiece {
 
   submitView () {
     const { getFieldDecorator } = this.props.form;
+    let {
+      codeInputProps = {},
+      passwordInputProps = {}
+    } = this.props;
+    codeInputProps = {
+      prefix: <Icon type="lock" />,
+      size: "large",
+      placeholder: "Code",
+      message: 'Please enter secret code!',
+      ...codeInputProps,
+      onChange: this.handleInputChange,
+      name: "code"
+    };
+    passwordInputProps = {
+      prefix: <Icon type="lock" />,
+      size: "large",
+      placeholder: "Password",
+      message: 'Please enter your password!',
+      ...passwordInputProps,
+      onChange: this.handleInputChange,
+      name: "password",
+      type: "password"
+    };
     return (
       <React.Fragment>
         <FormItem>
           {getFieldDecorator("code", {
-            rules: [{ required: true, message: "Please input secret code!" }]
+            rules: [{ required: true, message: codeInputProps.message}]
           })(
-            <Input
-              size="large"
-              prefix={<Icon type="user" />}
-              placeholder="Code"
-              name="code"
-              onChange={this.handleInputChange}
-            />
+            <Input {...codeInputProps} />
           )}
         </FormItem>
         <FormItem>
@@ -114,18 +138,11 @@ class ResetPasswordForm extends AuthPiece {
             rules: [
               {
                 required: true,
-                message: "Please input your password!"
+                message: passwordInputProps.message
               }
             ]
           })(
-            <Input
-              size="large"
-              type="password"
-              prefix={<Icon type="lock" />}
-              placeholder="Password"
-              name="password"
-              onChange={this.handleInputChange}
-            />
+            <Input {...passwordInputProps} />
           )}
         </FormItem>
       </React.Fragment>
@@ -138,7 +155,20 @@ class ResetPasswordForm extends AuthPiece {
       return null;
     }
 
-    const { delivery } = this.state;
+    const { delivery, loading } = this.state;
+    let {
+      buttonProps = {}
+    } = this.props;
+    buttonProps = {
+      size: 'large',
+      type: 'primary',
+      label: 'Submit',
+      className: `antd-amplify-full-width ${buttonProps.className? buttonProps.className : ''}`,
+      ...buttonProps,
+      loading,
+      disabled: loading,
+      htmlType: 'submit'
+    }
     return (
       <Form onSubmit={this.handleSubmit} className="antd-amplify-form antd-amplify-form-forgotpassword">
         {delivery ? this.submitView() : this.sendView()}
@@ -153,15 +183,8 @@ class ResetPasswordForm extends AuthPiece {
                 Sign In
               </a>
             </span>
-            <Button
-              type="primary"
-              size="large"
-              htmlType="submit"
-              className="antd-amplify-full-width"
-              loading={this.state.loading}
-              disabled={this.state.loading}
-            >
-              Submit
+            <Button {...buttonProps}>
+              {buttonProps.label}
             </Button>
           </Row>
         </FormItem>

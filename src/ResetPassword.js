@@ -7,10 +7,11 @@ const ResetPassword = props => {
   if (authState !== "forgotPassword") {
     return null;
   }
+  const { colProps = { xs: 24, sm: 12, md: 8 }} = props;
   return (
-    <Col xs={24} sm={12} md={8}>
-      <Card title="Reset Password">
-        <ResetPasswordForm {...props} />
+    <Col {...colProps}>
+      <Card title={props.title || 'Reset Password'}>
+        <ResetPasswordForm {...props} {...props.formProps} />
       </Card>
     </Col>
   );

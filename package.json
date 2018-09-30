@@ -1,6 +1,6 @@
 {
   "name": "antd-amplify-react",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "This package contains react component for Aws Authentication using React",
   "main": "dist/index.js",
   "scripts": {

@@ -70,6 +70,40 @@ class ConfirmSignUp extends AuthPiece {
     const username = this.usernameFromAuthData();
     const { getFieldDecorator } = this.props.form;
     const { loading } = this.state;
+    let {
+      usernameInputProps = {},
+      codeInputProps = {},
+      buttonProps = {}
+    } = this.props;
+    usernameInputProps = {
+      prefix: <Icon type="user" />,
+      size: "large",
+      placeholder: "Email",
+      message: 'Please enter your email!',
+      ...usernameInputProps,
+      onChange: this.handleInputChange,
+      name: "email",
+      disabled: Boolean(username)
+    };
+    codeInputProps = {
+      prefix: <Icon type="lock" />,
+      size: "large",
+      placeholder: "Code",
+      message: 'Please enter secret code!',
+      ...codeInputProps,
+      onChange: this.handleInputChange,
+      name: "code"
+    };
+    buttonProps = {
+      size: 'large',
+      type: 'primary',
+      label: 'Submit',
+      className: `antd-amplify-full-width ${buttonProps.className? buttonProps.className : ''}`,
+      ...buttonProps,
+      loading,
+      disabled: loading,
+      htmlType: 'submit'
+    }
 
     return (
       <Form onSubmit={this.handleSubmit} className="antd-amplify-form antd-amplify-form-signup">
@@ -80,18 +114,11 @@ class ConfirmSignUp extends AuthPiece {
               {
                 required: true,
                 type: "email",
-                message: "Please input your Email!"
+                message: usernameInputProps.message
               }
             ]
           })(
-            <Input
-              size="large"
-              prefix={<Icon type="user" />}
-              placeholder={I18n.get("Email")}
-              name="username"
-              disabled={Boolean(username)}
-              onChange={this.handleInputChange}
-            />
+            <Input {...usernameInputProps} />
           )}
         </FormItem>
         <FormItem>
@@ -99,16 +126,11 @@ class ConfirmSignUp extends AuthPiece {
             rules: [
               {
                 required: true,
-                message: "Please enter secret code!"
+                message: codeInputProps.message
               }
             ]
           })(
-            <Input
-              size="large"
-              placeholder={I18n.get("Enter your code")}
-              onChange={this.handleInputChange}
-              name="code"
-            />
+            <Input {...codeInputProps} />
           )}
         </FormItem>
         <FormItem>
@@ -121,15 +143,8 @@ class ConfirmSignUp extends AuthPiece {
             </span>
           </Row>
           <Row type="flex" align="space-between">
-            <Button
-              type="primary"
-              size="large"
-              htmlType="submit"
-              className="antd-amplify-full-width"
-              loading={loading}
-              disabled={loading}
-            >
-              Submit
+            <Button {...buttonProps}>
+              {buttonProps.label}
             </Button>
           </Row>
         </FormItem>

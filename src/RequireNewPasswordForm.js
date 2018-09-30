@@ -69,6 +69,31 @@ class RequireNewPasswordForm extends AuthPiece {
 
   showComponent() {
     const { getFieldDecorator } = this.props.form;
+    const { loading } = this.state;
+    let {
+      passwordInputProps = {},
+      buttonProps = {}
+    } = this.props;
+    passwordInputProps = {
+      prefix: <Icon type="lock" />,
+      size: "large",
+      placeholder: "New Password",
+      message: 'Please enter your new password!',
+      ...passwordInputProps,
+      onChange: this.handleInputChange,
+      name: "password",
+      type: "password"
+    };
+    buttonProps = {
+      size: 'large',
+      type: 'primary',
+      label: 'Submit',
+      className: `antd-amplify-full-width ${buttonProps.className? buttonProps.className : ''}`,
+      ...buttonProps,
+      loading,
+      disabled: loading,
+      htmlType: 'submit'
+    }
 
     return (
       <Form
@@ -77,16 +102,9 @@ class RequireNewPasswordForm extends AuthPiece {
       >
         <FormItem>
           {getFieldDecorator("password", {
-            rules: [{ required: true, message: "Please input your Password!" }]
+            rules: [{ required: true, message: passwordInputProps.message }]
           })(
-            <Input
-              size="large"
-              prefix={<Icon type="lock" />}
-              type="password"
-              placeholder="New Password"
-              name="password"
-              onChange={this.handleInputChange}
-            />
+            <Input {...passwordInputProps} />
           )}
         </FormItem>
         <FormItem>
@@ -94,15 +112,8 @@ class RequireNewPasswordForm extends AuthPiece {
             <span>
               Back to <a onClick={() => this.changeState("signIn")}>Sign In</a>
             </span>
-            <Button
-              type="primary"
-              size="large"
-              htmlType="submit"
-              className="btn-wide"
-              loading={this.state.loading}
-              disabled={this.state.loading}
-            >
-              Submit
+            <Button {...buttonProps}>
+              {buttonProps.label}
             </Button>
           </Row>
         </FormItem>

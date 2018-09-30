@@ -7,10 +7,11 @@ const RequireNewPassword = props => {
   if (authState !== "requireNewPassword") {
     return null;
   }
+  const { colProps = { xs: 24, sm: 12, md: 8 }} = props;
   return (
-    <Col xs={24} sm={12} md={8}>
-      <Card title="Change Password">
-        <RequireNewPasswordForm {...this.props} />
+    <Col {...colProps}>
+      <Card title={props.title || 'Change Password'}>
+        <RequireNewPasswordForm {...props.formProps} {...props}  />
       </Card>
     </Col>
   );

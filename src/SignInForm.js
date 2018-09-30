@@ -2,7 +2,7 @@ import React from "react";
 import { Auth, JS, I18n } from "aws-amplify";
 import { Form, Button, Input, Icon, message, Row } from "antd";
 
-import AuthPiece from "../AuthPiece";
+import AuthPiece from "./AuthPiece";
 
 const FormItem = Form.Item;
 
