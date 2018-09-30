@@ -1,6 +1,8 @@
 # antd-amplify-react
 This package contains AWS Amplify React components for Authentication (`SignUp`, `ConfirmSignUp`, `SignIn`, `SignOut`, `RequireNewPassword`, `ForgotPassword`)
 
+If you like this package and it helped you in any way, Star at [github](https://github.com/mzohaibqc/antd-amplify-react) ⭐ ⭐ ⭐
+
 ### Install
 > npm i -S antd-amplify-react
 
@@ -20,6 +22,14 @@ There is a special component `AuthFlow` which contains all above mentioned compo
 <AuthFlow userRadioButtons />
 ```
 ![AuthFlow](https://raw.githubusercontent.com/mzohaibqc/antd-amplify-react/master/images/authflow1.png?raw=true "AuthFlow")
+
+```
+<SignUp />
+```
+
+[SignUp, See more](./src/SignUp/README.md)
+
+
 ```
 <SignIn />
 ```

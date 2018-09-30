@@ -123,12 +123,13 @@ class SignIn extends AuthPiece {
       passwordInputProps = {},
       hideSignUpLink = false,
       hideResetPasswordLink = false,
-      buttonProps: {}
+      buttonProps = {}
     } = this.props;
     usernameInputProps = {
       prefix: <Icon type="user" />,
       size: "large",
       placeholder: "Username",
+      message: 'Please enter your username!',
       ...usernameInputProps,
       onChange: this.handleInputChange,
       name: "username"
@@ -137,6 +138,7 @@ class SignIn extends AuthPiece {
       prefix: <Icon type="lock" />,
       size: "large",
       placeholder: "Password",
+      message: 'Please enter your password!',
       ...passwordInputProps,
       onChange: this.handleInputChange,
       name: "password",
@@ -145,8 +147,8 @@ class SignIn extends AuthPiece {
     buttonProps = {
       size: 'large',
       type: 'primary',
-      type: 'primary',
       label: 'Submit',
+      className: `antd-amplify-full-width ${buttonProps.className? buttonProps.className : ''}`,
       ...buttonProps,
       loading,
       disabled: loading,
@@ -160,12 +162,12 @@ class SignIn extends AuthPiece {
       >
         <FormItem>
           {getFieldDecorator("username", {
-            rules: [{ required: true, message: "Please input your username!" }]
+            rules: [{ required: true, message: usernameInputProps.message }]
           })(<Input {...usernameInputProps} />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator("password", {
-            rules: [{ required: true, message: "Please input your Password!" }]
+            rules: [{ required: true, message: passwordInputProps.message }]
           })(<Input {...passwordInputProps} />)}
         </FormItem>
         <FormItem>

@@ -11,8 +11,11 @@ const App = () => (
   >
     <BasicLayout>
       <SignIn title="Sign In" formProps={{
-        hideSignUpLink: true,
-        hideResetPasswordLink: true
+        hideSignUpLink: false,
+        hideResetPasswordLink: false,
+        usernameInputProps: {
+          message: 'Invalid username!'
+        }
       }} />
       <SignUp />
       <RequireNewPassword />

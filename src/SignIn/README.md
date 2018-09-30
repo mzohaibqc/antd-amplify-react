@@ -25,13 +25,13 @@ For sign in functionality, there are two components
 ```
 ### SignInForm
 
-| Property              | Description                                                  | Type   | Default                                                                   |
-| --------------------- | ------------------------------------------------------------ | ------ | ------------------------------------------------------------------------- |
-| usernameInputProps    | username input field props                                   | object | `{ prefix: <Icon type="user" />, size: 'large', placeholder: 'Username'}` |
-| passwordInputProps    | password input field props                                   | object | `{ prefix: <Icon type="lock" />, size: 'large', placeholder: 'Password'}` |
-| buttonProps           | Submit button props                                          | object | `{ size: 'large', type: 'primary', label: 'Submit'}`                      |
-| hideSignUpLink        | In order to hide SignUp link in form, add this props.        | bool   | `false`                                                                   |
-| hideResetPasswordLink | In order to hide ResetPassword link in form, add this props. | bool   | `false`                                                                   |
+| Property              | Description                                                  | Type   | Default                                                                                                            |
+| --------------------- | ------------------------------------------------------------ | ------ | ------------------------------------------------------------------------------------------------------------------ |
+| usernameInputProps    | username input field props                                   | object | `{ prefix: <Icon type="user" />, size: 'large', placeholder: 'Username', message: 'Please enter your username!' }` |
+| passwordInputProps    | password input field props                                   | object | `{ prefix: <Icon type="lock" />, size: 'large', placeholder: 'Password', message: 'Please enter your password!' }` |
+| buttonProps           | Submit button props                                          | object | `{ size: 'large', type: 'primary', label: 'Submit'}`                                                               |
+| hideSignUpLink        | In order to hide SignUp link in form, add this props.        | bool   | `false`                                                                                                            |
+| hideResetPasswordLink | In order to hide ResetPassword link in form, add this props. | bool   | `false`                                                                                                            |
 
 
 ```html

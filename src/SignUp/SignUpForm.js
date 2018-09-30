@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Icon, Input, Button, message, Row } from "antd";
 import { Auth } from "aws-amplify";
 
-import AuthPiece from "./AuthPiece";
+import AuthPiece from "../AuthPiece";
 
 const FormItem = Form.Item;
 
@@ -79,13 +79,60 @@ class RegisterForm extends AuthPiece {
   };
 
   render() {
-    const { authState, confirmPassword = false } = this.props;
+    const { authState } = this.props;
     if (authState !== "signUp") {
       return null;
     }
 
     const { getFieldDecorator } = this.props.form;
     const { loading } = this.state;
+    let {
+      usernameInputProps = {},
+      passwordInputProps = {},
+      confirmPasswordInputProps = {},
+      confirmPassword = true,
+      buttonProps = {}
+    } = this.props;
+    usernameInputProps = {
+      prefix: <Icon type="user" />,
+      size: "large",
+      placeholder: "Email",
+      message: 'Please enter your email!',
+      ...usernameInputProps,
+      onChange: this.handleInputChange,
+      name: "email"
+    };
+    passwordInputProps = {
+      prefix: <Icon type="lock" />,
+      size: "large",
+      placeholder: "Password",
+      message: 'Please enter your password!',
+      ...passwordInputProps,
+      onChange: this.handleInputChange,
+      name: "password",
+      type: "password"
+    };
+    confirmPasswordInputProps = {
+      prefix: <Icon type="lock" />,
+      size: "large",
+      placeholder: "Password",
+      message: 'Please enter your password!',
+      ...confirmPasswordInputProps,
+      onChange: this.handleInputChange,
+      name: "password",
+      type: "password"
+    };
+    buttonProps = {
+      size: 'large',
+      type: 'primary',
+      label: 'Submit',
+      className: `antd-amplify-full-width ${buttonProps.className? buttonProps.className : ''}`,
+      ...buttonProps,
+      loading,
+      disabled: loading,
+      htmlType: 'submit'
+    }
+
 
     return (
       <Form
@@ -98,31 +145,19 @@ class RegisterForm extends AuthPiece {
               {
                 required: true,
                 type: "email",
-                message: "Please input your Email!"
+                message: usernameInputProps.message
               }
             ]
           })(
-            <Input
-              size="large"
-              prefix={<Icon type="user" />}
-              placeholder="Email"
-              name="email"
-              onChange={this.handleInputChange}
+            <Input {...usernameInputProps}
             />
           )}
         </FormItem>
         <FormItem>
           {getFieldDecorator("password", {
-            rules: [{ required: true, message: "Please input your Password!" }]
+            rules: [{ required: true, message: passwordInputProps.message }]
           })(
-            <Input
-              size="large"
-              prefix={<Icon type="lock" />}
-              type="password"
-              placeholder="Password"
-              name="password"
-              onChange={this.handleInputChange}
-            />
+            <Input {...passwordInputProps} />
           )}
         </FormItem>
         {confirmPassword && (
@@ -131,19 +166,14 @@ class RegisterForm extends AuthPiece {
               validateTrigger: "onBlur",
               rules: [
                 {
-                  required: true,
-                  message: "Please confirm your password!"
+                  required: this.props.form.getFieldValue('password'),
+                  message: confirmPasswordInputProps.message
                 },
                 { validator: this.checkPassword }
               ]
             })(
-              <Input
-                placeholder="Confirm Password"
-                prefix={<Icon type="lock" />}
-                size="large"
-                type="password"
+              <Input {...confirmPasswordInputProps}
                 onBlur={this.handleConfirmBlur}
-                disabled={loading}
               />
             )}
           </FormItem>
@@ -161,15 +191,8 @@ class RegisterForm extends AuthPiece {
             </span>
           </Row>
           <Row type="flex" align="space-between">
-            <Button
-              type="primary"
-              size="large"
-              htmlType="submit"
-              className="antd-amplify-full-width"
-              loading={loading}
-              disabled={loading}
-            >
-              Submit
+            <Button {...buttonProps}>
+              {buttonProps.label}
             </Button>
           </Row>
         </FormItem>
