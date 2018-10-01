@@ -32,7 +32,7 @@ Here are following components that you can use:
 ### AuthFlow
 
 ```html
-<AuthFlow useRadioButtons />
+<AuthFlow  />
 ```
 
 ![AuthFlow](https://raw.githubusercontent.com/mzohaibqc/antd-amplify-react/master/images/authflow1.png?raw=true "AuthFlow")
